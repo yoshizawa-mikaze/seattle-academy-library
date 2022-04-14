@@ -72,22 +72,6 @@ public class AccountController {
 			return "createAccount";
 		}
 
-//        	userInfo.setPassword(password);
-//            usersService.registUser(userInfo);
-//
-//            model.addAttribute("bookList", booksService.getBookList());
-//           
-//        	return "home";
-//        } else if (!(password.equals(passwordForCheck))) {
-//        	model.addAttribute("eroor", "パスワードが間違っています");
-//        	
-//        	return "createAccount";
-//        } else if (password.length() < 8 && password.matches("^[A-Za-z0-9]+$")) {   
-//        	model.addAttribute("miss", "パスワードは８文字以上、半角英数字");
-//        	return "createAccount";
-//        }
-//		return ;
-
 	}
 
 }

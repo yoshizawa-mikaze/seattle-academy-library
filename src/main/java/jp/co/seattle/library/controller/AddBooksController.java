@@ -42,6 +42,7 @@ public class AddBooksController {
      * @param title 書籍名
      * @param author 著者名
      * @param publisher 出版社
+     * @param publishDate 出版日
      * @param file サムネイルファイル
      * @param model モデル
      * @return 遷移先画面
@@ -52,6 +53,9 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publish_date") String publishDate,
+            @RequestParam("isbn") String isbn,
+            @RequestParam("texts") String texts,
             @RequestParam("thumbnail") MultipartFile file,
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
@@ -61,6 +65,9 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublishDate(publishDate);
+        bookInfo.setIsbn(isbn);
+        bookInfo.setTexts(texts);
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -85,13 +92,38 @@ public class AddBooksController {
         }
 
         // 書籍情報を新規登録する
+        String error = "";
+        
+        
+        
+        if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
+        	error += "必須項目を入力してください。<br>";
+        } 
+        
+        if(!publishDate.matches("^[0-9]{4}[0-9]{2}[0-9]{2}$")) {
+        	error += "出版日をYYYYMMDD形式にしてください。<br>";
+        } 
+        
+        if(!isbn.matches("") && (!isbn.matches("^[0-9]*$") || !(isbn.length() == 13) && !(isbn.length() == 10))) {
+        	error += "ISBNの桁数または半角数字が間違っています。<br>";
+        } 
+        if(!(error.equals(""))) {
+        	model.addAttribute("error", error);
+        	model.addAttribute("bookInfo", bookInfo);
+        	return "addBook";
+        	
+        } 
         booksService.registBook(bookInfo);
+        
 
-        model.addAttribute("resultMessage", "登録完了");
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
+
+        BookDetailsInfo bookDetailsInfo = booksService.insertBookList();
+        model.addAttribute("bookDetailsInfo", bookDetailsInfo);
         return "details";
     }
+} 
 
-}
+

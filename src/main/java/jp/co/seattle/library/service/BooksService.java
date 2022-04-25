@@ -55,6 +55,20 @@ public class BooksService {
 
         return bookDetailsInfo;
     }
+    
+    /**
+     * 新規登録した書籍の情報を取得する
+     * 
+     * 
+     * 
+     * @return　書籍情報
+     */
+    
+    public BookDetailsInfo insertBookList() {
+    	String sql = "SELECT * FROM books where id = (SELECT MAX(id) FROM books);";
+    	BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
+    	return bookDetailsInfo;
+    }
 
     /**
      * 書籍を登録する
@@ -63,12 +77,15 @@ public class BooksService {
      */
     public void registBook(BookDetailsInfo bookInfo) {
 
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
+        String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date, isbn, texts) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "',"
-                + "now(),"
-                + "now())";
+                + bookInfo.getThumbnailUrl() + "','"
+                + "now()', '"
+                + "now())', '"
+                + bookInfo.getIsbn() + "','"
+                + bookInfo.getTexts() + "' );";
 
         jdbcTemplate.update(sql);
     }

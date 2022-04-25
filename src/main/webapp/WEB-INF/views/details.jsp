@@ -56,7 +56,7 @@
                     <span>出版社</span>
                     <p>${bookDetailsInfo.publisher}</p>
                 </div>
-                  <div>
+                <div>
                     <span>出版日</span>
                     <p>${bookDetailsInfo.publishDate}</p>
                 </div>

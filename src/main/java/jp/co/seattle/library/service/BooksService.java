@@ -83,11 +83,46 @@ public class BooksService {
                 + bookInfo.getThumbnailName() + "','"
                 + bookInfo.getThumbnailUrl() + "','"
                 + "now()', '"
-                + "now())', '"
+                + "now()', '"
                 + bookInfo.getIsbn() + "','"
                 + bookInfo.getTexts() + "' );";
 
         jdbcTemplate.update(sql);
+    }
+    
+    /**
+     * 書籍を編集する
+     *
+     * @param bookInfo 書籍情報
+     * @return 更新した書籍情報
+     */
+public BookDetailsInfo editBook(BookDetailsInfo bookInfo) {
+	String sql;
+	
+    	if(bookInfo.getThumbnailUrl() != null) {
+    		
+	    	 sql = "UPDATE books set title = '" + bookInfo.getTitle() + "', author = '" +  bookInfo.getAuthor() 
+	    	+ "', publisher = '"+ bookInfo.getPublisher() 
+	    	+ "', publish_date = '" + bookInfo.getPublishDate() 
+	    	+ "', thumbnail_name = '" + bookInfo.getThumbnailName() 
+	    	+ "' , thumbnail_url = '" + bookInfo.getThumbnailUrl() + "', " 
+	    	+ " upd_date = 'now()', " + " isbn = '" + bookInfo.getIsbn() 
+	    	+ "', texts = '" + bookInfo.getTexts() 
+	    	+ "' where id = " + bookInfo.getBookId() + " ;";
+    	} else {
+    		sql = "UPDATE books set title = '" + bookInfo.getTitle() + "', author = '" +  bookInfo.getAuthor() 
+	    	+ "', publisher = '"+ bookInfo.getPublisher() 
+	    	+ "', publish_date = '" + bookInfo.getPublishDate() + "',"
+	    	+ " upd_date = 'now()', " + " isbn = '" + bookInfo.getIsbn() 
+	    	+ "', texts = '" + bookInfo.getTexts() 
+	    	+ "' where id = " + bookInfo.getBookId() + " ;";
+    	}
+    	
+    	
+    	
+    	jdbcTemplate.update(sql);
+    	return bookInfo;
+    	
     }
     /**
      * 書籍を削除する

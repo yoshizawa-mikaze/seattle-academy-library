@@ -70,6 +70,7 @@ public class BooksService {
     	return bookDetailsInfo;
     }
 
+
     /**
      * 書籍を登録する
      *
@@ -96,7 +97,7 @@ public class BooksService {
      * @param bookInfo 書籍情報
      * @return 更新した書籍情報
      */
-public BookDetailsInfo editBook(BookDetailsInfo bookInfo) {
+public void editBook(BookDetailsInfo bookInfo) {
 	String sql;
 	
     	if(bookInfo.getThumbnailUrl() != null) {
@@ -121,7 +122,7 @@ public BookDetailsInfo editBook(BookDetailsInfo bookInfo) {
     	
     	
     	jdbcTemplate.update(sql);
-    	return bookInfo;
+    	
     	
     }
     /**

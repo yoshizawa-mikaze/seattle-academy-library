@@ -127,7 +127,7 @@ public class EditBookController {
         
         //更新した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
-        BookDetailsInfo bookDetailsInfo = booksService.editBook(bookInfo);
+        BookDetailsInfo bookDetailsInfo = booksService.getBookInfo(bookInfo.getBookId());
         model.addAttribute("bookDetailsInfo", bookDetailsInfo);
         return "details";
 

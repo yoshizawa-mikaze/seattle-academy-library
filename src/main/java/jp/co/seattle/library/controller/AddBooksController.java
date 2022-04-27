@@ -92,21 +92,8 @@ public class AddBooksController {
         }
 
         // 書籍情報を新規登録する
-        String error = "";
         
-        
-        
-        if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
-        	error += "必須項目を入力してください。<br>";
-        } 
-        
-        if(!publishDate.matches("^[0-9]{4}[0-9]{2}[0-9]{2}$")) {
-        	error += "出版日をYYYYMMDD形式にしてください。<br>";
-        } 
-        
-        if(!isbn.matches("") && (!isbn.matches("^[0-9]*$") || !(isbn.length() == 13) && !(isbn.length() == 10))) {
-        	error += "ISBNの桁数または半角数字が間違っています。<br>";
-        } 
+        String error = booksService.validationcheck(title, author, publisher, publishDate, isbn, model);
         if(!(error.equals(""))) {
         	model.addAttribute("error", error);
         	model.addAttribute("bookInfo", bookInfo);

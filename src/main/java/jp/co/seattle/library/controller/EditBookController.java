@@ -119,6 +119,8 @@ public class EditBookController {
         } 
         if(!(error.equals(""))) {
         	model.addAttribute("error", error);
+        	 bookInfo.setThumbnailName("null");
+             bookInfo.setThumbnailUrl("null");
         	model.addAttribute("bookDetailsInfo", bookInfo);
         	return "editBook";
         	

@@ -120,7 +120,6 @@ public void editBook(BookDetailsInfo bookInfo) {
     	}
     	
     	
-    	
     	jdbcTemplate.update(sql);
     	
     	

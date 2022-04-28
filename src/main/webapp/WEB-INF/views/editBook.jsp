@@ -18,7 +18,7 @@
 <body class="wrapper">
     <header>
         <div class="left">
-            <img class="mark" src="resources/img/logo.png" />       
+            <img class="mark" src="resources/img/logo.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
@@ -35,12 +35,12 @@
                 <div>
                     <span>書籍の画像</span> <span class="care care1">任意</span>
                     <div class="book_thumnail">
-                     <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
-                            <img class="book_noimg" src="resources/img/noImg.png">
-                        </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
-                            <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
-                        </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
-                    </a>
+                        <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
+                                <img class="book_noimg" src="resources/img/noImg.png">
+                            </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
+                                <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
+                            </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
+                        </a>
                     </div>
                     <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
                 </div>
@@ -49,28 +49,22 @@
                         <p class="error">${error}</p>
                     </c:if>
                     <div>
-                        <span>書籍名</span><span class="care care2">必須</span>          
-                            <input type="text" name="title" value="${bookDetailsInfo.title}" autocomplete="off">           
+                        <span>書籍名</span><span class="care care2">必須</span> <input type="text" name="title" value="${bookDetailsInfo.title}" autocomplete="off">
                     </div>
                     <div>
-                        <span>著者名</span><span class="care care2">必須</span>                        
-                            <input type="text" name="author" value="${bookDetailsInfo.author}">                       
+                        <span>著者名</span><span class="care care2">必須</span> <input type="text" name="author" value="${bookDetailsInfo.author}">
                     </div>
                     <div>
-                        <span>出版社</span><span class="care care2">必須</span>                   
-                            <input type="text" name="publisher" value="${bookDetailsInfo.publisher}">                        
+                        <span>出版社</span><span class="care care2">必須</span> <input type="text" name="publisher" value="${bookDetailsInfo.publisher}">
                     </div>
                     <div>
-                        <span>出版日</span><span class="care care2">必須</span>
-                            <input type="text" name="publish_date" value="${bookDetailsInfo.publishDate}">                     
+                        <span>出版日</span><span class="care care2">必須</span> <input type="text" name="publish_date" value="${bookDetailsInfo.publishDate}">
                     </div>
                     <div>
-                        <span>ISBN</span><span class="care care1">任意</span>                 
-                            <input type="text" name="isbn" value="${bookDetailsInfo.isbn}">                     
+                        <span>ISBN</span><span class="care care1">任意</span> <input type="text" name="isbn" value="${bookDetailsInfo.isbn}">
                     </div>
                     <div>
-                        <span>説明文</span><span class="care care1">任意</span>
-                            <input type="text" name="texts" value="${bookDetailsInfo.texts}">                       
+                        <span>説明文</span><span class="care care1">任意</span> <input type="text" name="texts" value="${bookDetailsInfo.texts}">
                     </div>
                     <input type="hidden" id="bookId" name="bookId" value="${bookDetailsInfo.bookId}">
                 </div>

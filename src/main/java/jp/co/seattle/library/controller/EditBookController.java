@@ -18,38 +18,48 @@ import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
- * Handles requests for the application home page.
+ * 編集コントローラー
  */
 @Controller //APIの入り口
-public class AddBooksController {
-    final static Logger logger = LoggerFactory.getLogger(AddBooksController.class);
-
+public class EditBookController {
+    final static Logger logger = LoggerFactory.getLogger(DeleteBookController.class);
     @Autowired
     private BooksService booksService;
-
+    
     @Autowired
     private ThumbnailService thumbnailService;
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.GET) //value＝actionで指定したパラメータ
+    
+    /**
+     * 編集ボタンから編集画面に移るページ
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/editBook", method = RequestMethod.POST)//value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
-    public String login(Model model) {
-        return "addBook";
+    public String editTransition(Model model, int bookId) {
+    	model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
+        return "editBook";
     }
 
+    
     /**
-     * 書籍情報を登録する
+     * 対象書籍を編集する
+     *
      * @param locale ロケール情報
      * @param title 書籍名
-     * @param author 著者名
+     * @param author　著者
      * @param publisher 出版社
      * @param publishDate 出版日
-     * @param file サムネイルファイル
-     * @param model モデル
-     * @return 遷移先画面
+     * @param ISBN 書籍識別番号
+     * @param texts 説明文
+     * @param model モデル情報
+     * @return 遷移先画面名
      */
     @Transactional
-    @RequestMapping(value = "/insertBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public String insertBook(Locale locale,
+    @RequestMapping(value = "/updateBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+    public String updateBook(
+            Locale locale,
+            @RequestParam("bookId") int bookId,
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
@@ -58,10 +68,9 @@ public class AddBooksController {
             @RequestParam("texts") String texts,
             @RequestParam("thumbnail") MultipartFile file,
             Model model) {
-        logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
-
-        // パラメータで受け取った書籍情報をDtoに格納する。
+        logger.info("Welcome update! The client locale is {}.", locale);
         BookDetailsInfo bookInfo = new BookDetailsInfo();
+        bookInfo.setBookId(bookId);
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
@@ -87,30 +96,30 @@ public class AddBooksController {
                 // 異常終了時の処理
                 logger.error("サムネイルアップロードでエラー発生", e);
                 model.addAttribute("bookDetailsInfo", bookInfo);
-                return "addBook";
+                return "editBook";
             }
         }
 
-        // 書籍情報を新規登録する
+        // 書籍情報を編集して更新する
         
-        String error = booksService.validationcheck(title, author, publisher, publishDate, isbn, model);
+        
+       String error = booksService.validationcheck(title, author, publisher, publishDate, isbn, model);
         if(!(error.equals(""))) {
         	model.addAttribute("error", error);
-        	model.addAttribute("bookInfo", bookInfo);
-        	return "addBook";
+        	 bookInfo.setThumbnailName("null");
+             bookInfo.setThumbnailUrl("null");
+        	model.addAttribute("bookDetailsInfo", bookInfo);
+        	return "editBook";
         	
         } 
-        booksService.registBook(bookInfo);
+        booksService.editBook(bookInfo);
         
-
-
-        // TODO 登録した書籍の詳細情報を表示するように実装
+        //更新した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
-
-        BookDetailsInfo bookDetailsInfo = booksService.insertBookList();
+        BookDetailsInfo bookDetailsInfo = booksService.getBookInfo(bookInfo.getBookId());
         model.addAttribute("bookDetailsInfo", bookDetailsInfo);
         return "details";
+
     }
-} 
 
-
+}

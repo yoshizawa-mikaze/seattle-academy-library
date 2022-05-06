@@ -89,8 +89,7 @@ public class BooksService {
          	error += "出版日をYYYYMMDD形式にしてください。<br>";
          } 
          
-         if(isbn.length() != 0 && !(isbn.matches("^[0-9]{10}|[0-9]{13}"))) {
-         	System.out.println(isbn.length());        	
+         if(isbn.length() != 0 && !(isbn.matches("^[0-9]{10}|[0-9]{13}"))) {        	
          	error += "ISBNの桁数または半角数字が間違っています。<br>";
          } 
        

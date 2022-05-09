@@ -38,13 +38,6 @@ public class RentBookController {
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
 	public String rentBook(Locale locale,
 			@RequestParam("bookId") int bookId,
-//			@RequestParam("title") String title,
-//            @RequestParam("author") String author,
-//            @RequestParam("publisher") String publisher,
-//            @RequestParam("publish_date") String publishDate,
-//            @RequestParam("isbn") String isbn,
-//            @RequestParam("texts") String texts,
-//            @RequestParam("thumbnail") MultipartFile file,
             Model model) {
 		BookDetailsInfo bookInfo = new BookDetailsInfo();
 		int rentedBookId = rentBooksService.getRentBookInfo(bookId);

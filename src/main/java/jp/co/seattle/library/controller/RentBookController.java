@@ -45,12 +45,10 @@ public class RentBookController {
 	//貸出テーブルに書籍が存在するかチェック
 		if(rentedBookId == 0) {
 			rentBooksService.insertRentBook(bookId);
-			System.out.println("b");
 			
 		} else {
 			
 			model.addAttribute("error", "貸出中です。");
-			System.out.println("a");
 		}
 		
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));

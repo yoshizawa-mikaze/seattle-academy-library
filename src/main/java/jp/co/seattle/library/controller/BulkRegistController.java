@@ -51,12 +51,6 @@ public class BulkRegistController {
 	@Transactional
 	@RequestMapping(value = "/bulkRegistbook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String bulkRegistBook(Locale locale,
-//	            @RequestParam("title") String title,
-//	            @RequestParam("author") String author,
-//	            @RequestParam("publisher") String publisher,
-//	            @RequestParam("publish_date") String publishDate,
-//	            @RequestParam("isbn") String isbn,
-//	            @RequestParam("texts") String texts,
 			@RequestParam("file") MultipartFile file, Model model) {
 		logger.info("Welcome Books.java! The client locale is {}.", locale);
 

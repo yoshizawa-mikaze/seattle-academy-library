@@ -42,12 +42,7 @@
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
                     </a>
                 </div>
-                <c:if test="${bookDetailsInfo.rentBookId == 0}">
-                    <p>貸出可</p>
-                </c:if>
-                <c:if test="${bookDetailsInfo.rentBookId != 0}">
-                    <p>貸出中</p>
-                </c:if>
+                <p>${bookDetailsInfo.status}</p>
                 <div>
                     <c:if test="${!empty error}">
                         <div class="error">${error}</div>

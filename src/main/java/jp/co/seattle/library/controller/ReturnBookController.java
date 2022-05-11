@@ -22,34 +22,33 @@ import jp.co.seattle.library.service.RentBooksService;
 @Controller // APIの入り口
 public class ReturnBookController {
 	final static Logger logger = LoggerFactory.getLogger(ReturnBookController.class);
-    @Autowired
-    private BooksService booksService;
-    @Autowired
+	@Autowired
+	private BooksService booksService;
+	@Autowired
 	private RentBooksService rentBooksService;
-	
-    /**
-     * 対象書籍を返却する
-     *
-     * @param locale ロケール情報
-     * @param bookId 書籍ID
-     * @param model モデル情報
-     * @return 遷移先画面名
-     */
-    @Transactional
-    @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
-    public String returnBook( Locale locale,
-            @RequestParam("bookId") Integer bookId, Model model) {
+
+	/**
+	 * 対象書籍を返却する
+	 *
+	 * @param locale ロケール情報
+	 * @param bookId 書籍ID
+	 * @param model  モデル情報
+	 * @return 遷移先画面名
+	 */
+	@Transactional
+	@RequestMapping(value = "/returnBook", method = RequestMethod.POST)
+	public String returnBook(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
 		int rentedBookId = rentBooksService.getRentBookInfo(bookId);
-		
-		//貸出テーブルに書籍が存在するかチェック
-		if(rentedBookId == 0) {
+
+		// 貸出テーブルに書籍が存在するかチェック
+		if (rentedBookId == 0) {
 			model.addAttribute("error", "貸し出しされていません。");
-				
+
 		} else {
 			rentBooksService.returnBook(bookId);
 		}
-					
+
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 		return "details";
-    }
+	}
 }

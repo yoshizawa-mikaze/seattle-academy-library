@@ -29,6 +29,7 @@ public class RentBooksService {
     	int rentId = jdbcTemplate.queryForObject(sql, int.class,bookId);
   				
         return rentId;
+        
     }
     /**
      * 

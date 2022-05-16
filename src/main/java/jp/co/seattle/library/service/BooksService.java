@@ -50,7 +50,7 @@ public class BooksService {
 
         // JSPに渡すデータを設定する
         String sql = "SELECT *,"
-        		+ "case when rent_books.book_id > 0 then '貸出中' else '貸出可' end FROM books left join rent_books "
+        		+ "case when rent_books.book_id > 0 then '貸出中' else '貸出可' end as 貸出ステータス FROM books left join rent_books "
         		+ "on books.id = rent_books.book_id where books.id ="
                 + bookId;
 

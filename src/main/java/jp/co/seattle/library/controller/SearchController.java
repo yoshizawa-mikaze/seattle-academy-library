@@ -28,6 +28,8 @@ public class SearchController {
 	/**
 	 * 
 	 * 貸出処理
+	 * @title 書籍名
+	 * @return
 	 * 
 	 */
 	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)

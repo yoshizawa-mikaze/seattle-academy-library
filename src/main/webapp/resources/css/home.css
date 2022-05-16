@@ -65,17 +65,34 @@ input {
 }
 
 /* ここから追加 */
-.search_box {
+.container {
+	display: flex;
+	justify-content:space-between;
+}
+.search_box {	
     position: relative;
     margin-left: -5px;
+    text-align:right;
+    display:flex;
+    
+}
+.search_form{
+	border:1px solid #000000;
+	margin-left:auto;
+	padding:4px 10px;
+	
 }
 
-.search1 {
-    border-radius: 20px 0 0 20px;
-    font-size: 15px;
-    width: 325px;
+.btn_search {
+	background-color: #ffffff;
+    border-radius: 0px 0 0 0px;
+    font-size: 13px;
+    width: 60px;
     padding: 4px 10px;
+    text-align: center;
+    color:black;
     border: 1px solid #2196f3;
+    
 }
 
 .search1:hover {
@@ -85,7 +102,6 @@ input {
 .search_box:after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    content: "\f002";
     position: absolute;
     top: 7px;
     right: 12px;
@@ -140,7 +156,7 @@ img.book_noimg, img.book_img{
     font-size: 12px;
 }
 
-a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_rentBook,button.btn_returnBook,button.btn_bulkRegist {
+a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_rentBook,button.btn_returnBook,button.btn_bulkRegist{
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
@@ -172,6 +188,7 @@ button.btn_returnBook {
 button.btn_bulkRegist {
 	background-color: #FF9966;
 }
+
 
 a:hover, button:hover {
     opacity: 0.5;

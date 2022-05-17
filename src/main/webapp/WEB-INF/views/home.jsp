@@ -27,10 +27,10 @@
     <main>
         <div class="container">
             <h1>Home</h1>
-                <form method="post" class="search_box" action="<%=request.getContextPath()%>/searchBook">
-                    <input type="text" class="search_form" name="title" placeholder="キーワードを入力">
-                     <input type="submit" class="btn_search">検索</input>
-                </form>
+            <form method="post" class="search_box" action="<%=request.getContextPath()%>/searchBook">
+               <font size="2"><input type="radio" name="radiobutton" value="partialMatch" checked > 部分一致 <input type="radio" name="radiobutton" value="match"> 完全一致 </font><input type="text" class="search_form" name="title" placeholder="キーワードを入力">
+                <button type="submit" class="btn_search">検索</button>
+            </form>
         </div>
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
         <div class="content_body">

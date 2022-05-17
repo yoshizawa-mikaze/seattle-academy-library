@@ -172,9 +172,15 @@ public void editBook(BookDetailsInfo bookInfo) {
      * 
      * @param title 書籍名
      */
-    public List<BookInfo> searchBook(String title) {
-    	List<BookInfo> searchedBook = jdbcTemplate.query(
-    			"SELECT * FROM books WHERE title LIKE '%" + title + "%';",new BookInfoRowMapper());
+    public List<BookInfo> searchBook(String title,String selectedButton) {
+    	String sql;
+    	
+    	if(selectedButton.equals("partialMatch")) {
+    		sql="SELECT * FROM books WHERE title LIKE '%" + title + "%';";
+    	} else {
+    		sql="SELECT * FROM books WHERE title='" + title + "';";
+    	}
+    	List<BookInfo> searchedBook = jdbcTemplate.query(sql,new BookInfoRowMapper());
 		return searchedBook;
     	
     }

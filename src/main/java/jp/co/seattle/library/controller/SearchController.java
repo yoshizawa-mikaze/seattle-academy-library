@@ -34,9 +34,10 @@ public class SearchController {
 	 */
 	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
 	public String searchBook(Locale locale,
-			@RequestParam("title") String title,Model model) {
-		booksService.searchBook(title);
-		model.addAttribute("bookList",booksService.searchBook(title));
+			@RequestParam("title") String title,
+			@RequestParam("radiobutton") String selectedButton,Model model) {
+		booksService.searchBook(title,selectedButton);
+		model.addAttribute("bookList",booksService.searchBook(title,selectedButton));
 		return "home";
 	}
 	

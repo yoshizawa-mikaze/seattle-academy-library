@@ -68,7 +68,7 @@ public class BooksService {
      */
     
     public BookDetailsInfo insertBookList() {
-    	String sql = "SELECT *, case when rent_books.book_id > 0 then '貸出中' else '貸出可' end FROM books left join rent_books on books.id = rent_books.book_id where books.id = (SELECT MAX(id) FROM books);";
+    	String sql = "SELECT *, case when rent_books.book_id > 0 then '貸出中' else '貸出可' as status end FROM books left join rent_books on books.id = rent_books.book_id where books.id = (SELECT MAX(id) FROM books);";
     	BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
     	return bookDetailsInfo;
     }
@@ -164,6 +164,18 @@ public void editBook(BookDetailsInfo bookInfo) {
     	String sql = "DELETE FROM books Where id = " + bookId + " ;";
     	
     	jdbcTemplate.update(sql);
+    	
+    }
+    /**
+     * 
+     * 書籍情報を検索する
+     * 
+     * @param title 書籍名
+     */
+    public List<BookInfo> searchBook(String title) {
+    	List<BookInfo> searchedBook = jdbcTemplate.query(
+    			"SELECT * FROM books WHERE title LIKE '%" + title + "%';",new BookInfoRowMapper());
+		return searchedBook;
     	
     }
 }

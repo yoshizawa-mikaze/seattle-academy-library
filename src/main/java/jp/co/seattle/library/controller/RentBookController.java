@@ -38,16 +38,12 @@ public class RentBookController {
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
 	public String rentBook(Locale locale,
 			@RequestParam("bookId") int bookId,
-			@RequestParam("title") String title,
-			
-            Model model) {
-		
+			@RequestParam("title") String title,Model model) {
 		logger.info("Welcome rentBooks.java! The client locale is {}.", locale);
 		 
-
         LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
         
-//	//貸出テーブルに書籍が存在するかチェック
+//	//貸出テーブルに書籍が存在するか、
 		if(rentRecord == null) {
 			rentBooksService.insertRentBook(bookId,title);
 		} else {

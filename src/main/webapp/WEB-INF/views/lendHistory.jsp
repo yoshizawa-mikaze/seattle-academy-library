@@ -35,17 +35,16 @@
                     <th scope="col">返却日</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach var="lendBookInfo" items="${lendbookList}">
                  
-                <tbody>
                     <tr>
                         <td><form method="post" action="<%=request.getContextPath()%>/details"><a href="javascript:void(0)" onclick="this.parentNode.submit();">${lendBookInfo.title}</a><input type="hidden" name="bookId" value="${lendBookInfo.bookId}"></form></td>
                         <td>${lendBookInfo.rentDate}</td>
                         <td>${lendBookInfo.returnDate}</td>
                     </tr>
-                </tbody>
-                
             </c:forEach>
+            </tbody>
         </table>
     </main>
 </body>

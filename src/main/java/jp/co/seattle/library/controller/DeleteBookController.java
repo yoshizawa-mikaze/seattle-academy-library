@@ -42,9 +42,9 @@ public class DeleteBookController {
             @RequestParam("bookId") Integer bookId,
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
-		LendBookInfo rentedBookId = rentBooksService.getRentBookInfo(bookId);
+		LendBookInfo rentRecord = rentBooksService.getRentBookInfo(bookId);
         
-        if(rentedBookId == null) {
+        if(rentRecord == null || rentRecord.getRentDate() == null) {
         	booksService.deleteBook(bookId);
         } else {
         	model.addAttribute("error", "貸出中のため削除できません。");

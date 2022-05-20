@@ -8,21 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentBooksService;
 
 @Controller //APIの入り口
 public class LendingHistoryController {
 	final static Logger logger = LoggerFactory.getLogger(LendingHistoryController.class);
-
-    @Autowired
-    private BooksService booksService;
     
     @Autowired
     private RentBooksService rentBooksService;
     
     @RequestMapping(value = "/lending", method = RequestMethod.GET) //value＝actionで指定したパラメータ
-    //RequestParamでname属性を取得
     public String lending(Model model) {
     	model.addAttribute("lendbookList", rentBooksService.getRentBookList());
         

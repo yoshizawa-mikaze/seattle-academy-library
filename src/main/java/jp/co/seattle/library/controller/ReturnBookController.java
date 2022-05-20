@@ -41,11 +41,10 @@ public class ReturnBookController {
 	public String returnBook(Locale locale, 
 			@RequestParam("bookId") int bookId,
 			@RequestParam("title") String title,Model model) { 
-        
-        
+           
         LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
 
-		// 貸出テーブルに書籍が存在するかチェック
+		// 貸出テーブルにデータがあるか、すでに貸し出されている書籍かチェック
 		if (rentRecord == null || rentRecord.getRentDate() == null) {
 			
 			model.addAttribute("error", "貸し出しされていません。");

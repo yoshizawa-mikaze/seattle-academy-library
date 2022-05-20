@@ -2,6 +2,7 @@ input {
     outline: 0;
     border: 0;
     background: transparent;
+    margin: 0px 3px 0px 3px;
 }
 
 .icon {
@@ -72,7 +73,6 @@ input {
 .search_box {	
     position: relative;
     margin-left: -5px;
-    text-align:right;
     display:flex;
     
 }
@@ -87,7 +87,7 @@ input {
 	background-color: #ffffff;
     border-radius: 0px 0 0 0px;
     font-size: 13px;
-    width: 60px;
+    width: 70px;
     padding: 4px 10px;
     text-align: center;
     color:black;

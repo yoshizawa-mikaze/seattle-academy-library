@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.LendBookInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentBooksService;
 
@@ -41,9 +42,9 @@ public class DeleteBookController {
             @RequestParam("bookId") Integer bookId,
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
-        int rentedBookId = rentBooksService.getRentBookInfo(bookId);
+		LendBookInfo rentedBookId = rentBooksService.getRentBookInfo(bookId);
         
-        if(rentedBookId == 0) {
+        if(rentedBookId == null) {
         	booksService.deleteBook(bookId);
         } else {
         	model.addAttribute("error", "貸出中のため削除できません。");

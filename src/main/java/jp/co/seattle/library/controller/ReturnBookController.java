@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.LendBookInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentBooksService;
 
@@ -37,11 +38,16 @@ public class ReturnBookController {
 	 */
 	@Transactional
 	@RequestMapping(value = "/returnBook", method = RequestMethod.POST)
-	public String returnBook(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
-		int rentedBookId = rentBooksService.getRentBookInfo(bookId);
+	public String returnBook(Locale locale, 
+			@RequestParam("bookId") int bookId,
+			@RequestParam("title") String title,Model model) { 
+        
+        
+        LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
 
 		// 貸出テーブルに書籍が存在するかチェック
-		if (rentedBookId == 0) {
+		if (rentRecord == null || rentRecord.getRentDate() == null) {
+			
 			model.addAttribute("error", "貸し出しされていません。");
 
 		} else {

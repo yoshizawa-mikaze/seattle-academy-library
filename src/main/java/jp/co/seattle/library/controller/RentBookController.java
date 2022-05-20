@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jp.co.seattle.library.dto.BookDetailsInfo;
+import jp.co.seattle.library.dto.LendBookInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentBooksService;
 
@@ -38,19 +38,27 @@ public class RentBookController {
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
 	public String rentBook(Locale locale,
 			@RequestParam("bookId") int bookId,
+			@RequestParam("title") String title,
+			
             Model model) {
-		BookDetailsInfo bookInfo = new BookDetailsInfo();
-		int rentedBookId = rentBooksService.getRentBookInfo(bookId);
 		
-	//貸出テーブルに書籍が存在するかチェック
-		if(rentedBookId == 0) {
-			rentBooksService.insertRentBook(bookId);
-			
+		logger.info("Welcome rentBooks.java! The client locale is {}.", locale);
+		 
+
+        LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
+        
+//	//貸出テーブルに書籍が存在するかチェック
+		if(rentRecord == null) {
+			rentBooksService.insertRentBook(bookId,title);
 		} else {
-			
+			if(rentRecord.getRentDate() == null) {
+				rentBooksService.updateRentBook();
+				model.addAttribute("lendBookInfo",rentBooksService.getRentBookInfo(bookId));
+			} else {
 			model.addAttribute("error", "貸出中です。");
+		    }
 		}
-		
+		System.out.println(rentBooksService.getRentBookInfo(bookId));
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 		return "details";
 	}

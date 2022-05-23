@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="content_right">
-                <div>
+                <div id="abc">
                     <span>書籍名</span>
                     <p>${bookDetailsInfo.title}</p>
                 </div>

@@ -49,12 +49,12 @@ public class BooksService {
     public BookDetailsInfo getBookInfo(int bookId) {
 
         // JSPに渡すデータを設定する
-        String sql = "SELECT *,"
-        		+ "case when rent_books.book_id > 0 then '貸出中' else '貸出可' end as status FROM books left join rent_books "
-        		+ "on books.id = rent_books.book_id where books.id ="
-                + bookId;
+        String sql = "SELECT *, case when rent_date is null then '貸出可' else '貸出中' "
+        		+ "end as status FROM books "
+        		+ "left join rent_books "
+        		+ "on books.id = rent_books.book_id where books.id =?";
 
-        BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
+        BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper(),bookId);
 
         return bookDetailsInfo;
     }
@@ -68,14 +68,19 @@ public class BooksService {
      */
     
     public BookDetailsInfo insertBookList() {
-    	String sql = "SELECT *, case when rent_books.book_id > 0 then '貸出中' else '貸出可' as status end FROM books left join rent_books on books.id = rent_books.book_id where books.id = (SELECT MAX(id) FROM books);";
+    	String sql = "SELECT *, case when rent_books.book_id > 0 then '貸出中' else '貸出可' end as status FROM books left join rent_books on books.id = rent_books.book_id where books.id = (SELECT MAX(id) FROM books);";
     	BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
     	return bookDetailsInfo;
     }
     /**
      * 
      * 書籍情報の追加、編集時のバリデーションチェック
-     *
+     * @param title 書籍名
+     * @param author著者名
+     * @param publisher　出版社
+     * @param publishDate　出版日
+     * @param isbn　書籍識別番号
+     * @param model　
      * 
      */
     public String validationcheck(String title, String author, String publisher, String publishDate,String isbn, Model model) {
@@ -155,15 +160,16 @@ public void editBook(BookDetailsInfo bookInfo) {
     	
     }
     /**
-     * 書籍を削除する
+     * 書籍を削除する(書籍テーブル、貸出書籍テーブル両方から)
      * 
      * @param bookId
      */
     public void deleteBook(Integer bookId) {
     	
-    	String sql = "DELETE FROM books Where id = " + bookId + " ;";
+    	String sql = "with deleted as (delete from books where books.id=? returning books.id) "
+    			+ "delete from rent_books where rent_books.book_id in (select id from deleted);";
     	
-    	jdbcTemplate.update(sql);
+    	jdbcTemplate.update(sql,bookId);
     	
     }
     /**

@@ -37,8 +37,7 @@ public class RentBookController {
 	 */
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
 	public String rentBook(Locale locale,
-			@RequestParam("bookId") int bookId,
-			@RequestParam("title") String title,Model model) {
+			@RequestParam("bookId") int bookId,Model model) {
 		logger.info("Welcome rentBooks.java! The client locale is {}.", locale);
 		 
         LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
@@ -54,7 +53,6 @@ public class RentBookController {
 			model.addAttribute("error", "貸出中です。");
 		    }
 		}
-		System.out.println(rentBooksService.getRentBookInfo(bookId));
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 		return "details";
 	}

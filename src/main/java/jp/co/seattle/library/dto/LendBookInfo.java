@@ -12,8 +12,8 @@ import lombok.Data;
 public class LendBookInfo {
 	
 		private int bookId;
-
-	    private String title;
+		
+		private String title;
 	    
 	    private String rentDate;
 	    

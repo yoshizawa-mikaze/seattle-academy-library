@@ -52,7 +52,6 @@ public class RentBooksService {
      * 書籍を貸出し、貸出日を登録する
      * 
      * @param bookId 書籍ID
-     * @param title 書籍名
      * 
      */
     public void insertRentBook(int bookId) {

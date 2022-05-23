@@ -39,8 +39,7 @@ public class ReturnBookController {
 	@Transactional
 	@RequestMapping(value = "/returnBook", method = RequestMethod.POST)
 	public String returnBook(Locale locale, 
-			@RequestParam("bookId") int bookId,
-			@RequestParam("title") String title,Model model) { 
+			@RequestParam("bookId") int bookId,Model model) { 
            
         LendBookInfo rentRecord=rentBooksService.getRentBookInfo(bookId);
 

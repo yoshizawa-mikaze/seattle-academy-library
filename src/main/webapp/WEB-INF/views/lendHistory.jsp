@@ -27,7 +27,7 @@
         </div>
     </header>
     <main>
-        <table class="table table-striped">
+        <table class="table table-striped mx-auto" style="width:70%">
             <thead>
                 <tr>
                     <th scope="col">書籍名</th>

@@ -45,7 +45,7 @@ public class RentBookController {
         
 //	//貸出テーブルに書籍が存在するか、
 		if(rentRecord == null) {
-			rentBooksService.insertRentBook(bookId,title);
+			rentBooksService.insertRentBook(bookId);
 		} else {
 			if(rentRecord.getRentDate() == null) {
 				rentBooksService.updateRentBook();

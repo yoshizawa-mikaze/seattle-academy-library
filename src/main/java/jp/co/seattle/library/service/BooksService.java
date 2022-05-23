@@ -160,15 +160,16 @@ public void editBook(BookDetailsInfo bookInfo) {
     	
     }
     /**
-     * 書籍を削除する
+     * 書籍を削除する(書籍テーブル、貸出書籍テーブル両方から)
      * 
      * @param bookId
      */
     public void deleteBook(Integer bookId) {
     	
-    	String sql = "DELETE FROM books Where id = " + bookId + " ;";
+    	String sql = "with deleted as (delete from books where books.id=? returning books.id) "
+    			+ "delete from rent_books where rent_books.book_id in (select id from deleted);";
     	
-    	jdbcTemplate.update(sql);
+    	jdbcTemplate.update(sql,bookId);
     	
     }
     /**

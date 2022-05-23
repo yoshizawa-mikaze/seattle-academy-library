@@ -22,7 +22,7 @@ public class RentBooksService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public List<LendBookInfo> getRentBookList() {
-    	String sql= "select * from rent_books order by title;";
+    	String sql= "select rent_books.id,rent_books.book_id,books.title,rent_books.rent_date,rent_books.return_date from books left join rent_books on books.id=rent_books.book_id;";
      
         List<LendBookInfo> getedRentBookList = jdbcTemplate.query(sql,new LendBookInfoRowMapper());
 
@@ -37,7 +37,7 @@ public class RentBooksService {
      */
     public LendBookInfo getRentBookInfo(int bookId) {
     	try {
-    	String sql = "SELECT * FROM rent_books where book_id = ?";
+    	String sql = "select rent_books.id,rent_books.book_id,books.title,rent_books.rent_date,rent_books.return_date from books left join rent_books on books.id=rent_books.book_id where rent_books.book_id=?;";
     	
         LendBookInfo rentRecord = jdbcTemplate.queryForObject(sql,new LendBookInfoRowMapper(),bookId);		
         return rentRecord;
@@ -49,36 +49,21 @@ public class RentBooksService {
     }
     /**
      * 
-     * 書籍が貸し出されているか確認する
-     * 
-     * 
-     */
-    public int lendBookRecord(LendBookInfo bookInfo) {
-    	String sql ="select count(rent_date)"
-    			+ "from rent_books "
-    			+ "where book_id=?;";
-    	
-    	int lendConfirm = jdbcTemplate.queryForObject(sql,int.class,bookInfo.getBookId());
-    	
-    	return lendConfirm;
-    }
-    /**
-     * 
      * 書籍を貸出し、貸出日を登録する
      * 
      * @param bookId 書籍ID
      * @param title 書籍名
      * 
      */
-    public void insertRentBook(int bookId,String title) {
-    	String sql="INSERT INTO rent_books (book_id,title,rent_date) VALUES (?,?,now()) ;";
+    public void insertRentBook(int bookId) {
+    	String sql="INSERT INTO rent_books (book_id,rent_date) VALUES (?,now()) ;";
     		
-    	jdbcTemplate.update(sql,bookId,title);
+    	jdbcTemplate.update(sql,bookId);
     }
     /**
      * 
      * 書籍貸出時に貸出日を更新する
-     * @
+     * 
      * 
      */
     public void updateRentBook() {
